@@ -19,7 +19,7 @@ npm install --save forgotten-prop-types
 ```
 
 ## Usage
-After installation from npm, just import it and call in root of your application,
+After installation, import it and call in root of your application,
 its take two arguments, React instance and optional user options.
 
 ```js
