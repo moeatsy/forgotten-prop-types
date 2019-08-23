@@ -9,7 +9,7 @@ Simple module to runtime log forgotten prop-types declarations
 2. [Usage](#usage)
 3. [Example](#example)
 4. [Options](#options)
-5. [Known Issues](#known issues)
+5. [Known Issues](#known-issues)
 5. [License](#license)
 
 ## Installation
