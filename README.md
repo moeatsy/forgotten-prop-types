@@ -15,7 +15,7 @@ Simple module to runtime log forgotten prop-types declarations
 ## Installation
 
 ```shell
-npm install --save prop-types
+npm install --save forgotten-prop-types
 ```
 
 ## Usage
