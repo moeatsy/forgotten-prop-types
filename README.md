@@ -74,10 +74,10 @@ Delimiter text between component name and props in console`s message.
 CSS color code or HEX code that applies to console`s message
 
 ## Known issues
-As long as this module just wrapper around React.createElement, we can`t get name of components thats been wrapped by other
-component, its may be problem in cases when you use a lot of these. For example, these components will display as "withRouter(C)".
+As long as this module just wrapper around React.createElement, we can`t get name of component that been wrapped by other
+components, its may be problem in cases when you use a lot of these. For example, these components will display as "withRouter(C)".
 You can blacklist these components by wrapper name or by shown component name, or copy whole string from console.
 
 ## License
 
-forgotten-prop-types is [MIT licensed](./LICENSE).
+Forgotten-prop-types is [MIT licensed](./LICENSE).
