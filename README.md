@@ -19,18 +19,15 @@ npm install --save prop-types
 ```
 
 ## Usage
-
-PropTypes was originally exposed as part of the React core module, and is
-commonly used with React components.
-Here is an example of using PropTypes with a React component, which also
-documents the different validators provided:
+After installation from npm, just import it and call in root of your application,
+its take two arguments, React instance and optional user options.
 
 ```js
 // Root of your application, usually index.js
 import React from 'react';
-import ForgottenPropTypes from 'forgotten-prop-types';
+import forgottenPropTypes from 'forgotten-prop-types';
 
-ForgottenPropTypes(React, {
+forgottenPropTypes(React, {
     // custom options
 });
 ```
