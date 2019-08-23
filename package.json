@@ -1,0 +1,24 @@
+{
+  "name": "forgotten-prop-types",
+  "license": "MIT",
+  "description": "Simple module to log forgotten propTypes declarations",
+  "author": "Aleksandr Moon <moonday@asia.com>",
+  "repository": "https://github.com/moeatsy/forgotten-prop-types.git",
+  "main": "index.js",
+  "files": [
+    "README.md",
+    "index.js"
+  ],
+  "homepage": "https://github.com/moeatsy/forgotten-prop-types",
+  "bugs": {
+    "url": "https://github.com/moeatsy/forgotten-prop-types/issues"
+  },
+  "keywords": [
+    "prop-types",
+    "react"
+  ],
+  "version": "1.0.0",
+  "dependencies": {
+    "defaults": "^1.0.3"
+  }
+}
