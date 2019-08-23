@@ -32,15 +32,17 @@ const wrapper = function(__createElement, opts) {
     return function() {
         const args = [].splice.call(arguments, 0);
         const [component, props] = args;
-        const propTypes = component.propTypes;
-        let innerName = component.name || component.displayName;
-        const undeclaredProps = [];
-
-        if (component.displayName && component.name && component.displayName.indexOf('(') !== -1) {
-            innerName = component.displayName.replace('()', `(${component.name})`);
-        }
 
         if (typeof component === 'function') {
+
+            const propTypes = component.propTypes;
+            const undeclaredProps = [];
+            let innerName = component.name || component.displayName;
+
+            if (component.displayName && component.name && component.displayName.indexOf('(') !== -1) {
+                innerName = component.displayName.replace('()', `(${component.name})`);
+            }
+
             if (propTypes && props) {
                 Object.keys(props).forEach((prop)=> {
                     if (!propTypes[prop] && !options.propsBlackList.includes(prop) && !options.componentsBlackList.includes(innerName) &&
