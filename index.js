@@ -36,6 +36,7 @@ const wrapper = function(__createElement, opts) {
         if (typeof component === 'function') {
 
             const propTypes = component.propTypes;
+            const forgetProps = component.forgetProps || [];
             const undeclaredProps = [];
             let innerName = component.name || component.displayName;
 
@@ -46,7 +47,8 @@ const wrapper = function(__createElement, opts) {
             if (propTypes && props) {
                 Object.keys(props).forEach((prop)=> {
                     if (!propTypes[prop] && !options.propsBlackList.includes(prop) && !options.componentsBlackList.includes(innerName) &&
-                        !options.componentsBlackList.includes(component.displayName) && !options.componentsBlackList.includes(component.name)) {
+                        !options.componentsBlackList.includes(component.displayName) && !options.componentsBlackList.includes(component.name) &&
+                            !forgetProps.includes(prop)) {
                         undeclaredProps.push(prop);
                     }
                 });

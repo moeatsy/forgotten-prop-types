@@ -52,7 +52,12 @@ forgottenPropTypes(React, {
 });
 ```
 #### propsBlackList([String])
-Array of props to ignore 
+Array of props to ignore
+
+If you need to ignore props of only one component, you can use alternative syntax and set static prop "forgetProps" with array of properties to ignore.
+```js
+ExampleComponent.forgetProps = ['match', 'location']
+```
 
 #### componentsBlackList ([String])
 Array of components to ignore
