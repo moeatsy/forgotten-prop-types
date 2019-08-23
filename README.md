@@ -9,7 +9,7 @@ Simple module to runtime log forgotten prop-types declarations
 2. [Usage](#usage)
 3. [Example](#example)
 4. [Options](#options)
-5. [Known Issues](#known--issues)
+5. [Known Issues](#known issues)
 5. [License](#license)
 
 ## Installation
@@ -51,28 +51,26 @@ forgottenPropTypes(React, {
     consolePropsColor: 'yellow'
 });
 ```
-#### propsBlackList
-
-Array of props to ignore ([String])
+#### propsBlackList([String])
+Array of props to ignore 
 
 #### componentsBlackList ([String])
-
 Array of components to ignore
 You may have problem with some wrapped components, in this case you should copy name from console log with braces.
 
-### displayUnique (Boolean)
+#### displayUnique (Boolean)
 Allow to display property only first time, otherwise will show all undeclared propTypes properties for component everytime.
 
-### consoleNoticeType (String)
+#### consoleNoticeType (String)
 Called method of console. Should be warn, log, info, debug or error.
 
-### consolePrefix (String)
+#### consolePrefix (String)
 Prefix of log message
 
-### consoleText (String)
+#### consoleText (String)
 Delimiter text between component name and props in console`s message.
 
-### consolePrefixColor, consoleComponentColor, consoleTextColor, consolePropsColor (String)
+#### consolePrefixColor, consoleComponentColor, consoleTextColor, consolePropsColor (String)
 CSS color code or HEX code that applies to console`s message
 
 ## Known issues
