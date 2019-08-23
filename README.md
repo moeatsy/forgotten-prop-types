@@ -42,13 +42,14 @@ forgottenPropTypes(React, {
     propsBlackList: ['dispatch', 'onSelectNextTrack', 'onSelectPrevTrack'],
     componentsBlackList: ['PageHeader', 'PageFooter'],
     displayUnique: true,
+    require: false,
     consoleNoticeType: 'info',
     consolePrefix: '@forgotten',
-    consoleText: 'should contain in propTypes:',
     consolePrefixColor: 'grey',
     consoleComponentColor: 'skyblue',
     consoleTextColor: 'grey',
-    consolePropsColor: 'yellow'
+    consolePropsColor: 'yellow',
+    consoleUndefinedColor: 'maroon'
 });
 ```
 #### propsBlackList([String])
@@ -66,16 +67,22 @@ You may have problem with some wrapped components, in this case you should copy 
 #### displayUnique (Boolean)
 Allow to display property only first time, otherwise will show all undeclared propTypes properties for component everytime.
 
+#### require (Boolean)
+By default we examine only components with propTypes property.
+If you enable this option, it will log components without propTypes property.
+However it will ignore wrappers and other things with non-capitalized first character of name.
+So I cant guarantee that this option will work as planed in every case, but you can try.
+
+Also we check components runtime, and cache them to prevent console spam, so it may show not all required props in this notice.
+Anyway this option is helpfull and i love it :3
+
 #### consoleNoticeType (String)
 Called method of console. Should be warn, log, info, debug or error.
 
 #### consolePrefix (String)
 Prefix of log message
 
-#### consoleText (String)
-Delimiter text between component name and props in console`s message.
-
-#### consolePrefixColor, consoleComponentColor, consoleTextColor, consolePropsColor (String)
+#### consolePrefixColor, consoleComponentColor, consoleTextColor, consolePropsColor, consoleUndefinedColor (String)
 CSS color code or HEX code that applies to console`s message
 
 ## Known issues

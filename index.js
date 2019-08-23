@@ -15,25 +15,27 @@ const wrapper = function(__createElement, opts) {
         propsBlackList: [],
         componentsBlackList: [],
         displayUnique: true,
+        require: false,
         consoleNoticeType: 'info',
         consolePrefix: '',
-        consoleText: 'should contain in propTypes:',
         consolePrefixColor: isFirefox ? 'white' : 'grey',
         consoleComponentColor: isFirefox ? 'skyblue' : 'DarkSlateGray',
         consoleTextColor: isFirefox ? 'white' : 'grey',
         consolePropsColor: isFirefox ? 'yellow' : 'Chocolate',
+        consoleUndefinedColor: isFirefox ? 'red' : 'maroon'
     });
 
     options.propsBlackList.push(...['__source', '__self']);
 
     const shownList = [];
     const propsByComponent = {};
+    const componentsByName = new Set();
 
     return function() {
         const args = [].splice.call(arguments, 0);
         const [component, props] = args;
 
-        if (typeof component === 'function') {
+        if (typeof component === 'function' && props) {
 
             const propTypes = component.propTypes;
             const forgetProps = component.forgetProps || [];
@@ -44,14 +46,18 @@ const wrapper = function(__createElement, opts) {
                 innerName = component.displayName.replace('()', `(${component.name})`);
             }
 
-            if (propTypes && props) {
-                Object.keys(props).forEach((prop)=> {
-                    if (!propTypes[prop] && !options.propsBlackList.includes(prop) && !options.componentsBlackList.includes(innerName) &&
-                        !options.componentsBlackList.includes(component.displayName) && !options.componentsBlackList.includes(component.name) &&
-                            !forgetProps.includes(prop)) {
-                        undeclaredProps.push(prop);
-                    }
-                });
+            Object.keys(props).forEach((prop)=> {
+                if ((!propTypes || !propTypes[prop])
+                    && !options.propsBlackList.includes(prop)
+                    && !options.componentsBlackList.includes(innerName)
+                    && !options.componentsBlackList.includes(component.displayName)
+                    && !options.componentsBlackList.includes(component.name)
+                    && !forgetProps.includes(prop)) {
+                    undeclaredProps.push(prop);
+                }
+            });
+
+            if (propTypes) {
 
                 if (!propsByComponent[innerName]) {
                     propsByComponent[innerName] = new Set();
@@ -59,7 +65,7 @@ const wrapper = function(__createElement, opts) {
 
                 const displayProps = options.displayUnique ? filterUniqueProps(propsByComponent[innerName], undeclaredProps) : undeclaredProps;
                 if (displayProps.length) {
-                    const notice = `%c${options.consolePrefix}%c${innerName}%c ${options.consoleText} %c${displayProps.join(', ')}`;
+                    const notice = `%c${options.consolePrefix}%c${innerName}%c should contain in propTypes: %c${displayProps.join(', ')}`;
 
                     if (!shownList.includes(notice)) {
                         console[options.consoleNoticeType](notice,
@@ -72,6 +78,22 @@ const wrapper = function(__createElement, opts) {
                 }
 
                 undeclaredProps.forEach(prop => propsByComponent[innerName].add(prop));
+            } else {
+                if (options.require
+                    && undeclaredProps.length
+                    && innerName
+                    && !componentsByName.has(innerName)
+                    && innerName[0] === innerName[0].toUpperCase()) {
+
+                    const notice = `%c${options.consolePrefix}%cYou should set propTypes in %c${innerName}%c, it have props: %c${undeclaredProps.join(', ')}`;
+                    console[options.consoleNoticeType](notice,
+                        `color: ${options.consolePrefixColor}`,
+                        `color: ${options.consoleUndefinedColor}`,
+                        `color: ${options.consoleComponentColor}`,
+                        `color: ${options.consoleUndefinedColor}`,
+                        `color: ${options.consolePropsColor}`);
+                    componentsByName.add(innerName);
+                }
             }
         }
 
