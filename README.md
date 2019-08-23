@@ -36,7 +36,7 @@ ForgottenPropTypes(React, {
 ```
 
 ## Example
-(https://raw.githubusercontent.com/moeatsy/forgotten-prop-types/master/readme-example-image.jpg)
+![forgotten-prop-types Demo](https://raw.githubusercontent.com/moeatsy/forgotten-prop-types/master/readme-example-image.jpg)
 
 ## Options
 
