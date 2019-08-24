@@ -9,6 +9,9 @@
     "README.md",
     "index.js"
   ],
+  "scripts": {
+    "test": "react-scripts test"
+  },
   "homepage": "https://github.com/moeatsy/forgotten-prop-types",
   "bugs": {
     "url": "https://github.com/moeatsy/forgotten-prop-types/issues"
@@ -19,6 +22,18 @@
   ],
   "version": "1.0.5",
   "dependencies": {
-    "defaults": "^1.0.3"
+    "defaults": "^1.0.3",
+    "react-test-renderer": "^16.9.0"
+  },
+  "devDependencies": {
+    "enzyme": "^3.10.0",
+    "react-scripts": "3.0.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "react-dom": "^16.2.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.9.0"
   }
 }

@@ -10,6 +10,9 @@ const filterUniqueProps = (oldProps, newProps) => {
 };
 
 const wrapper = function(__createElement, opts) {
+    const shownList = [];
+    const propsByComponent = {};
+    const componentsByName = new Set();
     const isFirefox = typeof InstallTrigger !== 'undefined';
     const options = defaults(opts, {
         propsBlackList: [],
@@ -19,43 +22,38 @@ const wrapper = function(__createElement, opts) {
         consoleNoticeType: 'info',
         consolePrefix: '',
         consolePrefixColor: isFirefox ? 'white' : 'grey',
-        consoleComponentColor: isFirefox ? 'skyblue' : 'DarkSlateGray',
+        consoleComponentColor: isFirefox ? 'skyblue' : 'darkslategray',
         consoleTextColor: isFirefox ? 'white' : 'grey',
-        consolePropsColor: isFirefox ? 'yellow' : 'Chocolate',
+        consolePropsColor: isFirefox ? 'yellow' : 'chocolate',
         consoleUndefinedColor: isFirefox ? 'red' : 'maroon'
     });
 
-    options.propsBlackList.push(...['__source', '__self']);
-
-    const shownList = [];
-    const propsByComponent = {};
-    const componentsByName = new Set();
+    options.propsBlackList.push(...['__source', '__self', 'ref', 'key']);
 
     return function() {
         const args = [].splice.call(arguments, 0);
-        const [component, props] = args;
+        const [component, componentProps] = args;
 
-        if (typeof component === 'function' && props) {
-
+        if (typeof component === 'function' && componentProps) {
             const propTypes = component.propTypes;
             const forgetProps = component.forgetProps || [];
-            const undeclaredProps = [];
             let innerName = component.name || component.displayName;
 
             if (component.displayName && component.name && component.displayName.indexOf('(') !== -1) {
                 innerName = component.displayName.replace('()', `(${component.name})`);
             }
 
-            Object.keys(props).forEach((prop)=> {
+            const undeclaredProps = Object.keys(componentProps).reduce((acc, prop) => {
                 if ((!propTypes || !propTypes[prop])
                     && !options.propsBlackList.includes(prop)
                     && !options.componentsBlackList.includes(innerName)
                     && !options.componentsBlackList.includes(component.displayName)
                     && !options.componentsBlackList.includes(component.name)
                     && !forgetProps.includes(prop)) {
-                    undeclaredProps.push(prop);
+                    acc.push(prop);
                 }
-            });
+                return acc;
+            }, []);
 
             if (propTypes) {
 
@@ -63,7 +61,9 @@ const wrapper = function(__createElement, opts) {
                     propsByComponent[innerName] = new Set();
                 }
 
-                const displayProps = options.displayUnique ? filterUniqueProps(propsByComponent[innerName], undeclaredProps) : undeclaredProps;
+                const displayProps = options.displayUnique ?
+                    filterUniqueProps(propsByComponent[innerName], undeclaredProps) : undeclaredProps;
+
                 if (displayProps.length) {
                     const notice = `%c${options.consolePrefix}%c${innerName}%c should contain in propTypes: %c${displayProps.join(', ')}`;
 
@@ -78,7 +78,9 @@ const wrapper = function(__createElement, opts) {
                 }
 
                 undeclaredProps.forEach(prop => propsByComponent[innerName].add(prop));
+
             } else {
+
                 if (options.require
                     && undeclaredProps.length
                     && innerName
