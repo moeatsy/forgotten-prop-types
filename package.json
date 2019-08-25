@@ -10,7 +10,7 @@
     "index.js"
   ],
   "scripts": {
-    "test": "react-scripts test"
+    "test": "jest"
   },
   "homepage": "https://github.com/moeatsy/forgotten-prop-types",
   "bugs": {
@@ -20,20 +20,26 @@
     "prop-types",
     "react"
   ],
-  "version": "1.0.5",
+  "version": "1.0.6",
   "dependencies": {
-    "defaults": "^1.0.3",
-    "react-test-renderer": "^16.9.0"
+    "defaults": "^1.0.3"
+  },
+  "babel": {
+    "presets": [
+      "@babel/env",
+      "@babel/react"
+    ]
   },
   "devDependencies": {
+    "react-dom": "^16.9.0",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "*",
+    "babel-jest": "^24.9.0",
     "enzyme": "^3.10.0",
-    "react-scripts": "3.0.0",
     "enzyme-adapter-react-16": "^1.14.0",
-    "babel-core": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
-    "react-dom": "^16.2.0",
-    "prop-types": "^15.7.2",
-    "react": "^16.9.0"
+    "jest": "*",
+    "prop-types": "*",
+    "react": "16.x"
   }
 }
