@@ -43,12 +43,21 @@ const wrapper = function(__createElement, opts) {
                 innerName = component.displayName.replace('()', `(${component.name})`);
             }
 
+            let additionalComponentName, additionalName;
+            const connectedName = component.displayName && component.displayName.match(/(\w+)\((\w+)\)/);
+            if (connectedName && connectedName.length === 3) {
+                additionalComponentName = connectedName[1];
+                additionalName = connectedName[2];
+            }
+
             const undeclaredProps = Object.keys(componentProps).reduce((acc, prop) => {
                 if ((!propTypes || !propTypes[prop])
                     && !options.propsBlackList.includes(prop)
                     && !options.componentsBlackList.includes(innerName)
                     && !options.componentsBlackList.includes(component.displayName)
                     && !options.componentsBlackList.includes(component.name)
+                    && !options.componentsBlackList.includes(additionalComponentName)
+                    && !options.componentsBlackList.includes(additionalName)
                     && !forgetProps.includes(prop)) {
                     acc.push(prop);
                 }

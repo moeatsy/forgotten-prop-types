@@ -49,7 +49,7 @@ describe('forgotten-prop-types tests', () => {
         expect(consoleLog).toBe('%c%cComponentWithPropType%c should contain in propTypes: %ctestProp');
     });
 
-    it('#3 Component have forgetProp and not notice at this prop', () => {
+    it('#3 Component have forgetProp and not spawn notice at this prop', () => {
         shallow(<ComponentWithPropTypeAndForget haveProp={true} hiddenProp={true}/>);
         expect(consoleLog).toBe('');
     });
